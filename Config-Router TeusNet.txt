@@ -1,0 +1,892 @@
+R1#sh running-config
+Building configuration...
+
+
+Current configuration : 3936 bytes
+!
+! Last configuration change at 16:36:31 UTC Mon Mar 10 2025
+! NVRAM config last updated at 14:53:17 UTC Mon Mar 10 2025
+! NVRAM config last updated at 14:53:17 UTC Mon Mar 10 2025
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password 7 141D1D1809
+!
+no aaa new-model
+!
+no ipv6 cef
+ip source-route
+ip cef
+!
+!
+!
+ip dhcp excluded-address 172.16.47.254
+ip dhcp excluded-address 172.16.32.1 172.16.32.9
+ip dhcp excluded-address 172.16.31.254
+ip dhcp excluded-address 172.16.0.1 172.16.0.9
+ip dhcp excluded-address 172.16.57.254
+ip dhcp excluded-address 172.16.56.1 172.16.56.9
+ip dhcp excluded-address 172.16.59.254
+ip dhcp excluded-address 172.16.58.1 172.16.58.9
+!
+ip dhcp pool WiFi-Tec
+ network 172.16.32.0 255.255.240.0
+ default-router 172.16.47.254
+ dns-server 8.8.8.8
+ domain-name TeusNet.com
+!
+ip dhcp pool WiF-Visitantes
+ network 172.16.0.0 255.255.224.0
+ dns-server 8.8.8.8
+ domain-name TeusNet.com
+ default-router 172.16.31.254
+!
+ip dhcp pool WiF-Profesores
+ network 172.16.56.0 255.255.254.0
+ dns-server 8.8.8.8
+ domain-name TeusNet.com
+ default-router 172.16.57.254
+!
+ip dhcp pool WiF-Restaurantes
+ network 172.16.58.0 255.255.254.0
+ default-router 172.16.59.254
+ dns-server 8.8.8.8
+ domain-name TeusNet.com
+!
+!
+no ip domain lookup
+ip domain name TeusNet.com
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+license udi pid CISCO2901/K9 sn FTX161687XC
+license boot module c2900 technology-package uck9
+!
+!
+username jose1 secret 4 5qNGkzRoqgDnvPSoEzTgId5Ul.y.ImJzbr/45lvTXGQ
+!
+redundancy
+!
+!
+ip ssh version 2
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.11
+ encapsulation dot1Q 11
+ ip address 172.16.63.126 255.255.255.128
+!
+interface GigabitEthernet0/0.15
+ encapsulation dot1Q 15
+ ip address 172.16.63.238 255.255.255.240
+!
+interface GigabitEthernet0/0.19
+ encapsulation dot1Q 19
+ ip address 172.16.63.190 255.255.255.192
+!
+interface GigabitEthernet0/0.21
+ encapsulation dot1Q 21
+ ip address 172.16.63.222 255.255.255.224
+!
+interface GigabitEthernet0/0.35
+ encapsulation dot1Q 35
+ ip address 172.16.47.254 255.255.240.0
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface GigabitEthernet0/0.41
+ encapsulation dot1Q 41
+ ip address 172.16.31.254 255.255.224.0
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface GigabitEthernet0/0.61
+ encapsulation dot1Q 61
+ ip address 172.16.63.254 255.255.255.240
+!
+interface GigabitEthernet0/0.71
+ encapsulation dot1Q 71
+ ip address 172.16.59.254 255.255.254.0
+!
+interface GigabitEthernet0/0.81
+ encapsulation dot1Q 81
+ ip address 172.16.53.254 255.255.248.0
+!
+interface GigabitEthernet0/0.85
+ encapsulation dot1Q 85
+ ip address 172.16.57.254 255.255.254.0
+!
+interface GigabitEthernet0/1
+ ip address dhcp
+ ip nat outside
+R1#show ip dhcp binding
+Bindings from all pools not associated with VRF:
+IP address          Client-ID/              Lease expiration        Type
+                    Hardware address/
+                    User name
+172.16.0.10         01a4.bb6d.b7fa.c9       Mar 11 2025 02:37 PM    Automatic
+172.16.0.11         01b4.9691.77a0.d1       Mar 11 2025 03:16 PM    Automatic
+172.16.32.10        01b4.9691.77a7.f7       Mar 11 2025 02:39 PM    Automatic
+172.16.32.11        0164.00f1.0897.c0       Mar 11 2025 02:42 PM    Automatic
+172.16.32.13        01aa.1dc7.49db.ce       Mar 11 2025 03:10 PM    Automatic
+172.16.32.14        018a.10ca.7cee.ad       Mar 11 2025 03:11 PM    Automatic
+172.16.32.15        014e.9a3d.8719.38       Mar 11 2025 03:21 PM    Automatic
+172.16.32.16        018a.2c70.fc34.75       Mar 11 2025 03:11 PM    Automatic
+172.16.56.10        01b4.9691.77a8.50       Mar 11 2025 02:05 PM    Automatic
+172.16.58.10        01b4.9691.77a1.b8       Mar 11 2025 02:07 PM    Automatic
+R1#show ip rp
+% Incomplete command.
+
+R1#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       + - replicated route, % - next hop override
+
+Gateway of last resort is 10.40.72.254 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 10.40.72.254
+      10.0.0.0/8 is variably subnetted, 3 subnets, 2 masks
+C        10.40.72.0/24 is directly connected, GigabitEthernet0/1
+L        10.40.72.147/32 is directly connected, GigabitEthernet0/1
+S        10.40.84.42/32 [254/0] via 10.40.72.254, GigabitEthernet0/1
+      172.16.0.0/16 is variably subnetted, 20 subnets, 9 masks
+C        172.16.0.0/19 is directly connected, GigabitEthernet0/0.41
+L        172.16.31.254/32 is directly connected, GigabitEthernet0/0.41
+C        172.16.32.0/20 is directly connected, GigabitEthernet0/0.35
+L        172.16.47.254/32 is directly connected, GigabitEthernet0/0.35
+C        172.16.48.0/21 is directly connected, GigabitEthernet0/0.81
+L        172.16.53.254/32 is directly connected, GigabitEthernet0/0.81
+C        172.16.56.0/23 is directly connected, GigabitEthernet0/0.85
+L        172.16.57.254/32 is directly connected, GigabitEthernet0/0.85
+C        172.16.58.0/23 is directly connected, GigabitEthernet0/0.71
+L        172.16.59.254/32 is directly connected, GigabitEthernet0/0.71
+C        172.16.63.0/25 is directly connected, GigabitEthernet0/0.11
+L        172.16.63.126/32 is directly connected, GigabitEthernet0/0.11
+C        172.16.63.128/26 is directly connected, GigabitEthernet0/0.19
+L        172.16.63.190/32 is directly connected, GigabitEthernet0/0.19
+C        172.16.63.192/27 is directly connected, GigabitEthernet0/0.21
+L        172.16.63.222/32 is directly connected, GigabitEthernet0/0.21
+C        172.16.63.224/28 is directly connected, GigabitEthernet0/0.15
+L        172.16.63.238/32 is directly connected, GigabitEthernet0/0.15
+C        172.16.63.240/28 is directly connected, GigabitEthernet0/0.61
+L        172.16.63.254/32 is directly connected, GigabitEthernet0/0.61
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#show ip arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.40.72.147            -   2c54.2d8f.e889  ARPA   GigabitEthernet0/1
+Internet  10.40.72.254            0   8c94.6158.bd02  ARPA   GigabitEthernet0/1
+Internet  172.16.0.10           105   a4bb.6db7.fac9  ARPA   GigabitEthernet0/0.41
+Internet  172.16.0.11             0   b496.9177.a0d1  ARPA   GigabitEthernet0/0.41
+Internet  172.16.31.254           -   2c54.2d8f.e888  ARPA   GigabitEthernet0/0.41
+Internet  172.16.32.10          104   b496.9177.a7f7  ARPA   GigabitEthernet0/0.35
+Internet  172.16.32.11          101   6400.f108.97c0  ARPA   GigabitEthernet0/0.35
+Internet  172.16.32.13           68   aa1d.c749.dbce  ARPA   GigabitEthernet0/0.35
+Internet  172.16.32.14           68   8a10.ca7c.eead  ARPA   GigabitEthernet0/0.35
+Internet  172.16.32.15           62   4e9a.3d87.1938  ARPA   GigabitEthernet0/0.35
+Internet  172.16.32.16           58   8a2c.70fc.3475  ARPA   GigabitEthernet0/0.35
+Internet  172.16.47.254           -   2c54.2d8f.e888  ARPA   GigabitEthernet0/0.35
+Internet  172.16.53.254           -   2c54.2d8f.e888  ARPA   GigabitEthernet0/0.81
+
+R1#csh ru
+R1#csh ruun
+R1#csh ruun
+    ^
+% Invalid input detected at '^' marker.
+
+R1#sh run
+R1#sh running-config
+Building configuration...
+
+
+Current configuration : 3710 bytes
+!
+! Last configuration change at 14:52:23 UTC Mon Mar 10 2025
+! NVRAM config last updated at 14:53:17 UTC Mon Mar 10 2025
+! NVRAM config last updated at 14:53:17 UTC Mon Mar 10 2025
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password 7 141D1D1809
+!
+no aaa new-model
+!
+no ipv6 cef
+ip source-route
+ip cef
+!
+!
+!
+ip dhcp excluded-address 172.16.47.254
+ip dhcp excluded-address 172.16.32.1 172.16.32.9
+ip dhcp excluded-address 172.16.31.254
+ip dhcp excluded-address 172.16.0.1 172.16.0.9
+ip dhcp excluded-address 172.16.57.254
+ip dhcp excluded-address 172.16.56.1 172.16.56.9
+ip dhcp excluded-address 172.16.59.254
+ip dhcp excluded-address 172.16.58.1 172.16.58.9
+!
+ip dhcp pool WiFi-Tec
+ network 172.16.32.0 255.255.240.0
+ default-router 172.16.47.254
+ dns-server 8.8.8.8
+ domain-name TeusNet.com
+!
+ip dhcp pool WiF-Visitantes
+ network 172.16.0.0 255.255.224.0
+ dns-server 8.8.8.8
+ domain-name TeusNet.com
+ default-router 172.16.31.254
+!
+ip dhcp pool WiF-Profesores
+ network 172.16.56.0 255.255.254.0
+ dns-server 8.8.8.8
+ domain-name TeusNet.com
+ default-router 172.16.57.254
+!
+ip dhcp pool WiF-Restaurantes
+ network 172.16.58.0 255.255.254.0
+ default-router 172.16.59.254
+ dns-server 8.8.8.8
+ domain-name TeusNet.com
+!
+!
+no ip domain lookup
+ip domain name TeusNet.com
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+license udi pid CISCO2901/K9 sn FTX161687XC
+license boot module c2900 technology-package uck9
+!
+!
+username jose1 secret 4 5qNGkzRoqgDnvPSoEzTgId5Ul.y.ImJzbr/45lvTXGQ
+!
+redundancy
+!
+!
+ip ssh version 2
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.11
+ encapsulation dot1Q 11
+ ip address 172.16.63.126 255.255.255.128
+!
+interface GigabitEthernet0/0.15
+ encapsulation dot1Q 15
+ ip address 172.16.63.238 255.255.255.240
+!
+interface GigabitEthernet0/0.19
+ encapsulation dot1Q 19
+ ip address 172.16.63.190 255.255.255.192
+!
+interface GigabitEthernet0/0.21
+ encapsulation dot1Q 21
+ ip address 172.16.63.222 255.255.255.224
+!
+interface GigabitEthernet0/0.35
+ encapsulation dot1Q 35
+ ip address 172.16.47.254 255.255.240.0
+!
+interface GigabitEthernet0/0.41
+ encapsulation dot1Q 41
+ ip address 172.16.31.254 255.255.224.0
+!
+interface GigabitEthernet0/0.61
+ encapsulation dot1Q 61
+ ip address 172.16.63.254 255.255.255.240
+!
+interface GigabitEthernet0/0.71
+ encapsulation dot1Q 71
+ ip address 172.16.59.254 255.255.254.0
+!
+interface GigabitEthernet0/0.81
+ encapsulation dot1Q 81
+ ip address 172.16.53.254 255.255.248.0
+!
+interface GigabitEthernet0/0.85
+ encapsulation dot1Q 85
+ ip address 172.16.57.254 255.255.254.0
+!
+interface GigabitEthernet0/1
+ ip address dhcp
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ ip address 10.5.13.1 255.255.255.0
+ no fair-queue
+ clock rate 2000000
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 10.40.72.254
+!
+!
+!
+!
+
+R1#conf ter
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#interface GigabitEthernet0/0.35
+R1(config-subif)#ip na
+R1(config-subif)#ip nat in
+R1(config-subif)#ip nat inside
+
+Mar 10 16:34:02.987: %LINEPROTO-5-UPDOWN: Line protocol on Interface NVI0, changed state to up
+R1(config-subif)#
+R1(config-subif)#
+R1(config-subif)#
+R1(config-subif)#
+R1(config-subif)#
+R1(config-subif)#
+R1(config-subif)#
+R1(config-subif)#
+R1(config-subif)#interface GigabitEthernet0/0.41
+R1(config-subif)#ip nat inside
+R1(config-subif)#exit
+R1(config)#interface GigabitEthernet0/1
+R1(config-if)#ip na
+R1(config-if)#ip nat o
+R1(config-if)#ip nat outside
+R1(config-if)#
+R1(config-if)#
+R1(config-if)#exit
+R1(config)#acce
+R1(config)#access-list 101 pe
+R1(config)#access-list 101 permit ip an
+R1(config)#access-list 101 permit ip any an
+R1(config)#access-list 101 permit ip any any
+R1(config)#
+R1(config)#
+R1(config)#
+R1(config)#
+R1(config)#ip na
+R1(config)#ip nat
+R1(config)#ip nat in
+R1(config)#ip nat inside so
+R1(config)#ip nat inside source l
+R1(config)#ip nat inside source list 101 in
+R1(config)#ip nat inside source list 101 interface gi
+R1(config)#ip nat inside source list 101 interface gigabitEthernet 0/1 ?
+  no-payload  No translation of embedded address/port in the payload
+  overload    Overload an address translation
+  reversible  Allow out->in traffic
+  vrf         Specify vrf
+  <cr>
+
+R1(config)#ip nat inside source list 101 interface gigabitEthernet 0/1 o
+R1(config)#$de source list 101 interface gigabitEthernet 0/1 overload
+R1(config)#
+R1#
+R1#
+R1#
+R1#
+Mar 10 16:36:31.535: %SYS-5-CONFIG_I: Configured from console by console
+R1#sdh
+R1#sh
+R1#show ip na
+R1#show ip nat tr
+R1#show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+udp 10.40.72.147:54749 172.16.0.11:54749  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:16403 172.16.32.16:16403 17.188.181.34:3482 17.188.181.34:3482
+udp 10.40.72.147:49394 172.16.32.16:49394 8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:51414 172.16.32.16:51414 8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:54324 172.16.32.16:54324 8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:55714 172.16.32.16:55714 8.8.8.8:53         8.8.8.8:53
+tcp 10.40.72.147:57522 172.16.32.16:57522 17.36.200.79:443   17.36.200.79:443
+udp 10.40.72.147:59998 172.16.32.16:59998 8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:64541 172.16.32.16:64541 8.8.8.8:53         8.8.8.8:53
+R1#
+R1#
+R1#
+R1#
+R1#show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+udp 10.40.72.147:54749 172.16.0.11:54749  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:16403 172.16.32.16:16403 17.188.181.34:3482 17.188.181.34:3482
+udp 10.40.72.147:16403 172.16.32.16:16403 200.36.254.1:16403 200.36.254.1:16403
+udp 10.40.72.147:49394 172.16.32.16:49394 8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:51414 172.16.32.16:51414 8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:54324 172.16.32.16:54324 8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:55714 172.16.32.16:55714 8.8.8.8:53         8.8.8.8:53
+tcp 10.40.72.147:57522 172.16.32.16:57522 17.36.200.79:443   17.36.200.79:443
+udp 10.40.72.147:59998 172.16.32.16:59998 8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:64541 172.16.32.16:64541 8.8.8.8:53         8.8.8.8:53
+R1#show ip nat translations
+Pro Inside global      Inside local       Outside local      Outside global
+tcp 10.40.72.147:39701 172.16.0.11:39701  40.79.173.41:443   40.79.173.41:443
+tcp 10.40.72.147:39702 172.16.0.11:39702  20.190.155.132:443 20.190.155.132:443
+tcp 10.40.72.147:39703 172.16.0.11:39703  23.63.231.173:443  23.63.231.173:443
+tcp 10.40.72.147:39704 172.16.0.11:39704  40.71.93.126:443   40.71.93.126:443
+tcp 10.40.72.147:39705 172.16.0.11:39705  40.126.27.66:443   40.126.27.66:443
+tcp 10.40.72.147:39706 172.16.0.11:39706  20.190.155.130:443 20.190.155.130:443
+tcp 10.40.72.147:39707 172.16.0.11:39707  204.79.197.203:443 204.79.197.203:443
+tcp 10.40.72.147:39708 172.16.0.11:39708  204.79.197.203:443 204.79.197.203:443
+tcp 10.40.72.147:39709 172.16.0.11:39709  45.60.113.212:443  45.60.113.212:443
+tcp 10.40.72.147:39710 172.16.0.11:39710  13.89.179.12:443   13.89.179.12:443
+tcp 10.40.72.147:39711 172.16.0.11:39711  20.3.1.41:443      20.3.1.41:443
+tcp 10.40.72.147:39712 172.16.0.11:39712  13.89.179.12:443   13.89.179.12:443
+tcp 10.40.72.147:39713 172.16.0.11:39713  104.40.67.19:443   104.40.67.19:443
+tcp 10.40.72.147:39714 172.16.0.11:39714  20.190.155.131:443 20.190.155.131:443
+tcp 10.40.72.147:39715 172.16.0.11:39715  20.190.155.131:443 20.190.155.131:443
+tcp 10.40.72.147:39716 172.16.0.11:39716  20.190.155.131:443 20.190.155.131:443
+tcp 10.40.72.147:39717 172.16.0.11:39717  20.190.155.131:443 20.190.155.131:443
+tcp 10.40.72.147:39718 172.16.0.11:39718  20.75.60.91:443    20.75.60.91:443
+tcp 10.40.72.147:39719 172.16.0.11:39719  20.75.60.91:443    20.75.60.91:443
+tcp 10.40.72.147:39720 172.16.0.11:39720  20.75.60.91:443    20.75.60.91:443
+tcp 10.40.72.147:39721 172.16.0.11:39721  20.75.60.91:443    20.75.60.91:443
+tcp 10.40.72.147:39722 172.16.0.11:39722  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39723 172.16.0.11:39723  23.204.150.28:80   23.204.150.28:80
+Pro Inside global      Inside local       Outside local      Outside global
+tcp 10.40.72.147:39724 172.16.0.11:39724  23.223.26.211:443  23.223.26.211:443
+tcp 10.40.72.147:39725 172.16.0.11:39725  23.223.26.211:443  23.223.26.211:443
+tcp 10.40.72.147:39726 172.16.0.11:39726  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39727 172.16.0.11:39727  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39728 172.16.0.11:39728  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39729 172.16.0.11:39729  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39730 172.16.0.11:39730  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39731 172.16.0.11:39731  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39732 172.16.0.11:39732  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39733 172.16.0.11:39733  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39734 172.16.0.11:39734  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39735 172.16.0.11:39735  20.189.173.1:443   20.189.173.1:443
+tcp 10.40.72.147:39736 172.16.0.11:39736  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39737 172.16.0.11:39737  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39738 172.16.0.11:39738  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39739 172.16.0.11:39739  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39740 172.16.0.11:39740  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39741 172.16.0.11:39741  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39742 172.16.0.11:39742  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39743 172.16.0.11:39743  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39744 172.16.0.11:39744  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39745 172.16.0.11:39745  23.46.53.159:443   23.46.53.159:443
+tcp 10.40.72.147:39746 172.16.0.11:39746  4.153.66.43:443    4.153.66.43:443
+Pro Inside global      Inside local       Outside local      Outside global
+tcp 10.40.72.147:39747 172.16.0.11:39747  142.251.34.10:443  142.251.34.10:443
+tcp 10.40.72.147:39748 172.16.0.11:39748  142.251.34.10:443  142.251.34.10:443
+tcp 10.40.72.147:39749 172.16.0.11:39749  13.66.27.189:8080  13.66.27.189:8080
+tcp 10.40.72.147:39750 172.16.0.11:39750  20.7.2.167:443     20.7.2.167:443
+udp 10.40.72.147:49260 172.16.0.11:49260  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:50404 172.16.0.11:50404  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:50506 172.16.0.11:50506  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:50801 172.16.0.11:50801  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:50845 172.16.0.11:50845  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:51035 172.16.0.11:51035  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:51039 172.16.0.11:51039  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:51071 172.16.0.11:51071  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:52141 172.16.0.11:52141  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:52752 172.16.0.11:52752  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:52940 172.16.0.11:52940  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:53105 172.16.0.11:53105  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:53456 172.16.0.11:53456  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:54084 172.16.0.11:54084  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:54464 172.16.0.11:54464  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:54749 172.16.0.11:54749  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:55242 172.16.0.11:55242  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:55717 172.16.0.11:55717  8.8.8.8:53         8.8.8.8:53
+udp 10.40.72.147:56891 172.16.0.11:56891  8.8.8.8:53         8.8.8.8:53
+
+R1#sh run
+R1#sh running-config
+Building configuration...
+
+
+Current configuration : 3936 bytes
+!
+! Last configuration change at 16:36:31 UTC Mon Mar 10 2025
+! NVRAM config last updated at 14:53:17 UTC Mon Mar 10 2025
+! NVRAM config last updated at 14:53:17 UTC Mon Mar 10 2025
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password 7 141D1D1809
+!
+no aaa new-model
+!
+no ipv6 cef
+ip source-route
+ip cef
+!
+!
+!
+ip dhcp excluded-address 172.16.47.254
+ip dhcp excluded-address 172.16.32.1 172.16.32.9
+ip dhcp excluded-address 172.16.31.254
+ip dhcp excluded-address 172.16.0.1 172.16.0.9
+ip dhcp excluded-address 172.16.57.254
+ip dhcp excluded-address 172.16.56.1 172.16.56.9
+ip dhcp excluded-address 172.16.59.254
+ip dhcp excluded-address 172.16.58.1 172.16.58.9
+!
+ip dhcp pool WiFi-Tec
+ network 172.16.32.0 255.255.240.0
+ default-router 172.16.47.254
+ dns-server 8.8.8.8
+ domain-name TeusNet.com
+!
+ip dhcp pool WiF-Visitantes
+ network 172.16.0.0 255.255.224.0
+ dns-server 8.8.8.8
+ domain-name TeusNet.com
+ default-router 172.16.31.254
+!
+ip dhcp pool WiF-Profesores
+ network 172.16.56.0 255.255.254.0
+ dns-server 8.8.8.8
+ domain-name TeusNet.com
+ default-router 172.16.57.254
+!
+ip dhcp pool WiF-Restaurantes
+ network 172.16.58.0 255.255.254.0
+ default-router 172.16.59.254
+ dns-server 8.8.8.8
+ domain-name TeusNet.com
+!
+!
+no ip domain lookup
+ip domain name TeusNet.com
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+license udi pid CISCO2901/K9 sn FTX161687XC
+license boot module c2900 technology-package uck9
+!
+!
+username jose1 secret 4 5qNGkzRoqgDnvPSoEzTgId5Ul.y.ImJzbr/45lvTXGQ
+!
+redundancy
+!
+!
+ip ssh version 2
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.11
+ encapsulation dot1Q 11
+ ip address 172.16.63.126 255.255.255.128
+!
+interface GigabitEthernet0/0.15
+ encapsulation dot1Q 15
+ ip address 172.16.63.238 255.255.255.240
+!
+interface GigabitEthernet0/0.19
+ encapsulation dot1Q 19
+ ip address 172.16.63.190 255.255.255.192
+!
+interface GigabitEthernet0/0.21
+ encapsulation dot1Q 21
+ ip address 172.16.63.222 255.255.255.224
+!
+interface GigabitEthernet0/0.35
+ encapsulation dot1Q 35
+ ip address 172.16.47.254 255.255.240.0
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface GigabitEthernet0/0.41
+ encapsulation dot1Q 41
+ ip address 172.16.31.254 255.255.224.0
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface GigabitEthernet0/0.61
+ encapsulation dot1Q 61
+ ip address 172.16.63.254 255.255.255.240
+!
+interface GigabitEthernet0/0.71
+ encapsulation dot1Q 71
+ ip address 172.16.59.254 255.255.254.0
+!
+interface GigabitEthernet0/0.81
+ encapsulation dot1Q 81
+ ip address 172.16.53.254 255.255.248.0
+!
+interface GigabitEthernet0/0.85
+ encapsulation dot1Q 85
+ ip address 172.16.57.254 255.255.254.0
+!
+interface GigabitEthernet0/1
+ ip address dhcp
+ ip nat outside
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ ip address 10.5.13.1 255.255.255.0
+ no fair-queue
+ clock rate 2000000
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip nat inside source list 101 interface GigabitEthernet0/1 overload
+ip route 0.0.0.0 0.0.0.0 10.40.72.254
+!
+access-list 101 permit ip any any
+!
+!
+!
+control-plane
+!
+!
+!
+!
+mgcp profile default
+!
+!
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+!
+line con 0
+ password 7 011A081E4E051C0E
+ logging synchronous
+ login
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport input all
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ logging synchronous
+ login local
+ transport input ssh
+line vty 5 15
+ logging synchronous
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+end
+
+R1#      eras
+R1#      erase sta
+R1#      erase startup-config
+Erasing the nvram filesystem will remove all configuration files! Continue? [confirm]
+[OK]
+Erase of nvram: complete
+R1#
+R1#
+R1#
+R1#
+Mar 10 16:43:08.075: %SYS-7-NV_BLOCK_INIT: Initialized the geometry of nvram
+R1#show ip dhcp binding
+Bindings from all pools not associated with VRF:
+IP address          Client-ID/              Lease expiration        Type
+                    Hardware address/
+                    User name
+172.16.0.10         01a4.bb6d.b7fa.c9       Mar 11 2025 02:37 PM    Automatic
+172.16.0.11         01b4.9691.77a0.d1       Mar 11 2025 03:16 PM    Automatic
+172.16.32.10        01b4.9691.77a7.f7       Mar 11 2025 02:39 PM    Automatic
+172.16.32.11        0164.00f1.0897.c0       Mar 11 2025 02:42 PM    Automatic
+172.16.32.13        01aa.1dc7.49db.ce       Mar 11 2025 03:10 PM    Automatic
+172.16.32.14        018a.10ca.7cee.ad       Mar 11 2025 03:11 PM    Automatic
+172.16.32.15        014e.9a3d.8719.38       Mar 11 2025 03:21 PM    Automatic
+172.16.32.16        018a.2c70.fc34.75       Mar 11 2025 03:11 PM    Automatic
+172.16.56.10        01b4.9691.77a8.50       Mar 11 2025 02:05 PM    Automatic
+172.16.58.10        01b4.9691.77a1.b8       Mar 11 2025 02:07 PM    Automatic
+R1#show ip rp
+% Incomplete command.
+
+R1#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       + - replicated route, % - next hop override
+
+Gateway of last resort is 10.40.72.254 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 10.40.72.254
+      10.0.0.0/8 is variably subnetted, 3 subnets, 2 masks
+C        10.40.72.0/24 is directly connected, GigabitEthernet0/1
+L        10.40.72.147/32 is directly connected, GigabitEthernet0/1
+S        10.40.84.42/32 [254/0] via 10.40.72.254, GigabitEthernet0/1
+      172.16.0.0/16 is variably subnetted, 20 subnets, 9 masks
+C        172.16.0.0/19 is directly connected, GigabitEthernet0/0.41
+L        172.16.31.254/32 is directly connected, GigabitEthernet0/0.41
+C        172.16.32.0/20 is directly connected, GigabitEthernet0/0.35
+L        172.16.47.254/32 is directly connected, GigabitEthernet0/0.35
+C        172.16.48.0/21 is directly connected, GigabitEthernet0/0.81
+L        172.16.53.254/32 is directly connected, GigabitEthernet0/0.81
+C        172.16.56.0/23 is directly connected, GigabitEthernet0/0.85
+L        172.16.57.254/32 is directly connected, GigabitEthernet0/0.85
+C        172.16.58.0/23 is directly connected, GigabitEthernet0/0.71
+L        172.16.59.254/32 is directly connected, GigabitEthernet0/0.71
+C        172.16.63.0/25 is directly connected, GigabitEthernet0/0.11
+L        172.16.63.126/32 is directly connected, GigabitEthernet0/0.11
+C        172.16.63.128/26 is directly connected, GigabitEthernet0/0.19
+L        172.16.63.190/32 is directly connected, GigabitEthernet0/0.19
+C        172.16.63.192/27 is directly connected, GigabitEthernet0/0.21
+L        172.16.63.222/32 is directly connected, GigabitEthernet0/0.21
+C        172.16.63.224/28 is directly connected, GigabitEthernet0/0.15
+L        172.16.63.238/32 is directly connected, GigabitEthernet0/0.15
+C        172.16.63.240/28 is directly connected, GigabitEthernet0/0.61
+L        172.16.63.254/32 is directly connected, GigabitEthernet0/0.61
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#
+R1#show ip arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  10.40.72.147            -   2c54.2d8f.e889  ARPA   GigabitEthernet0/1
+Internet  10.40.72.254            0   8c94.6158.bd02  ARPA   GigabitEthernet0/1
+Internet  172.16.0.10           105   a4bb.6db7.fac9  ARPA   GigabitEthernet0/0.41
+Internet  172.16.0.11             0   b496.9177.a0d1  ARPA   GigabitEthernet0/0.41
+Internet  172.16.31.254           -   2c54.2d8f.e888  ARPA   GigabitEthernet0/0.41
+Internet  172.16.32.10          104   b496.9177.a7f7  ARPA   GigabitEthernet0/0.35
+Internet  172.16.32.11          101   6400.f108.97c0  ARPA   GigabitEthernet0/0.35
+Internet  172.16.32.13           68   aa1d.c749.dbce  ARPA   GigabitEthernet0/0.35
+Internet  172.16.32.14           68   8a10.ca7c.eead  ARPA   GigabitEthernet0/0.35
+Internet  172.16.32.15           62   4e9a.3d87.1938  ARPA   GigabitEthernet0/0.35
+Internet  172.16.32.16           58   8a2c.70fc.3475  ARPA   GigabitEthernet0/0.35
+Internet  172.16.47.254           -   2c54.2d8f.e888  ARPA   GigabitEthernet0/0.35
+Internet  172.16.53.254           -   2c54.2d8f.e888  ARPA   GigabitEthernet0/0.81
+
+
